@@ -1895,16 +1895,19 @@ SRC
     end
 
     if dir = with_config(target + "-dir", (idefault unless ldefault))
+      raise "Need directory name with --#{target}-dir=dirname" if dir == true
       defaults = Array === dir ? dir : dir.split(File::PATH_SEPARATOR)
       idefault = ldefault = nil
     end
 
     idir = with_config(target + "-include", idefault)
     if conf = $arg_config.assoc("--with-#{target}-include")
+      raise "Need directory name with --#{target}-include=dirname" if idir == true
       conf[1] ||= "${#{target}-dir}/include"
     end
     ldir = with_config(target + "-lib", ldefault)
     if conf = $arg_config.assoc("--with-#{target}-lib")
+      raise "Need directory name with --#{target}-lib=dirname" if ldir == true
       conf[1] ||= "${#{target}-dir}/#{_libdir_basename}"
     end
 
